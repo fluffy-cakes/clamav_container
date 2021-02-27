@@ -20,12 +20,11 @@ if (( ${#files} )); then
         done
 
         printf "Running scan on completed torrents"
-        clamscan -rio --remove=yes ${SCANDIRECTORY} > ${SCANDIRECTORY}/info 2>&1
+        clamscan -rio --remove=yes ${SCANDIRECTORY}
 
         if [ -e "${SCANDIRECTORY}/${filename}" ]; then
             printf "  --> File ok, moving\n"
             mv -f "${SCANDIRECTORY}/${filename}" "/data/done/${filename}"
-            rm ${SCANDIRECTORY}/info
         fi
     done
     printf "Done with processing\n"
