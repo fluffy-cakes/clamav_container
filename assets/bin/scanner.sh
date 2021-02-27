@@ -14,6 +14,7 @@ if (( ${#files} )); then
         transmission-remote "${ENVIP}:9091" --list
         torrentList=$(transmission-remote "${ENVIP}:9091" --list | awk -f /usr/local/bin/awk.awk)
         for i in $torrentList; do
+            printf "Removing torrent ID %s\n" "$i"
             transmission-remote "${ENVIP}:9091" --torrent "$i" --remove
         done
 
