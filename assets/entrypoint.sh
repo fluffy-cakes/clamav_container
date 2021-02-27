@@ -8,8 +8,6 @@ done
 printf "Fetching latest ClamAV virus definitions ...\n"
 freshclam
 
-WATCHDIR='/data/scan'
-printf "Waiting for changes to %s ...\n" "${WATCHDIR} "
-inotifywait -m -r -q -t 0 -e moved_to,close_write ${WATCHDIR} | while read -r path action file; do
-    /usr/local/bin/scanner.sh
-done
+# start supervisors, which spawns cron and inotify launcher
+printf "Starting supervisord ...\n"
+/usr/bin/supervisord -c /usr/local/supervisor.conf
